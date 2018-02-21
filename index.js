@@ -43,10 +43,7 @@ const startListening = () => {
 }
 
 if (require.main === module) {
-  db
-    .sync()
-    .then(createApp)
-    .then(startListening)
+  createApp().then(startListening)
 } else {
   createApp()
 }
