@@ -1,0 +1,32 @@
+{
+  "name": "echo-room-server",
+  "version": "1.0.0",
+  "description": "Server for Echo Room",
+  "engines": {
+    "node": ">= 7.0.0"
+  },
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "NODE_ENV='test' mocha ./server/**/*.spec.js ./server/**/**/*.spec.js ./client/**/*.spec.js --compilers js:babel-register"
+  },
+  "dependencies": {
+    "body-parser": "^1.16.1",
+    "compression": "^1.7.1",
+    "express": "^4.14.1",
+    "morgan": "^1.8.1",
+    "pg": "^7.4.1",
+    "sequelize": "^4.33.4",
+    "socket.io": "^2.0.3"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/echo-room/echo-room-server.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/echo-room/echo-room-server/issues"
+  },
+  "homepage": "https://github.com/echo-room/echo-room-server#readme"
+}
