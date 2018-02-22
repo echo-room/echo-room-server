@@ -4,7 +4,6 @@ const morgan = require('morgan')
 const bodyParser = require('body-parser')
 const compression = require('compression')
 const socketio = require('socket.io')
-const db = require('./db')
 const PORT = process.env.PORT || 8080
 const app = express()
 module.exports = app
@@ -42,8 +41,5 @@ const startListening = () => {
   require('./socket')(io)
 }
 
-if (require.main === module) {
-  createApp().then(startListening)
-} else {
-  createApp()
-}
+createApp()
+if (require.main === module) startListening()
