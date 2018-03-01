@@ -4,6 +4,7 @@ const morgan = require('morgan')
 const bodyParser = require('body-parser')
 const compression = require('compression')
 const socketio = require('socket.io')
+const multer = require('multer')
 const PORT = process.env.PORT || 8080
 const app = express()
 module.exports = app
@@ -16,8 +17,23 @@ const createApp = () => {
   app.use(bodyParser.json())
   app.use(bodyParser.urlencoded({ extended: true }))
 
+  const storage = multer.diskStorage({
+    destination: function(req, file, cb) {
+      cb(null, 'dejavu/audio-recordings/')
+    },
+    filename: function(req, file, cb) {
+      cb(null, file.originalname)
+    }
+  })
+
+  const upload = multer({ storage: storage })
+
   // compression middleware
   app.use(compression())
+
+  app.post('/upload', upload.single('audio-recording'), function(req, res, next) {
+    res.send('Upload successful.')
+  })
 
   // any remaining requests with an extension (.js, .css, etc.) send 404
   app.use((req, res, next) => {
@@ -33,9 +49,7 @@ const createApp = () => {
 }
 
 const startListening = () => {
-  const server = app.listen(PORT, () =>
-    console.log(`Echoing it up on port ${PORT}`)
-  )
+  const server = app.listen(PORT, () => console.log(`Echoing it up on port ${PORT}`))
 
   const io = socketio(server)
   require('./socket')(io)
