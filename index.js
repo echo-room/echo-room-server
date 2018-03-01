@@ -19,7 +19,7 @@ const createApp = () => {
 
   const storage = multer.diskStorage({
     destination: function(req, file, cb) {
-      cb(null, __dirname)
+      cb(null, path.resolve(__dirname, '../dejavu/recordings/'))
     },
     filename: function(req, file, cb) {
       cb(null, file.originalname)
